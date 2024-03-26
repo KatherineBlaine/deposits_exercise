@@ -11,7 +11,14 @@ class DepositsController < ApplicationController
   end
 
   def index
-    render json: Deposit.all
+    # List all deposits for a given tradeline
+    tradeline = Tradeline.find(params[:tradeline_id])
+    deposits = tradeline.deposits
+    render json: deposits
+  end
+
+  def show
+    # View an individual deposit
   end
 
   private
