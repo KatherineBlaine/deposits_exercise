@@ -4,3 +4,4 @@
 /log/*
 /public/uploads/*
 /tmp/pids/*
+storage/test.sqlite3
