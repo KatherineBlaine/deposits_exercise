@@ -3,8 +3,6 @@ class DepositsController < ApplicationController
     tradeline = Tradeline.find(params[:tradeline_id])
     deposit = tradeline.deposits.build(deposit_params)
 
-    # Deposit should not be able to be created if the deposit amount exceeds the oustanding balance
-
     if deposit.amount <= tradeline.outstanding_balance
       if deposit.save
         render json: deposit, status: :created
@@ -12,7 +10,9 @@ class DepositsController < ApplicationController
         render json: deposit.errors, status: :unprocessable_entity
       end
     else
-      render json: {error: 'Deposit amount exceeds outstanding balance.', status: :unprocessable_entity}
+      render json: { 
+        error: "Deposit amount exceeds outstanding balance. Current outstanding balance: $#{tradeline.outstanding_balance}", 
+        status: :unprocessable_entity }
     end
   end
 
